@@ -10,12 +10,15 @@ set(CURLCPP_SOURCE
 )
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC")
 endif()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -fPIC")
 endif()
 
 add_library(curlcpp STATIC ${CURLCPP_SOURCE})
 target_link_libraries(curlcpp ${CURL_LIBRARY})
+
+# Install the static library
+install (TARGETS curlcpp ARCHIVE DESTINATION lib)

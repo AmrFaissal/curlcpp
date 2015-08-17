@@ -1,6 +1,6 @@
 IF(BIICODE)
     INCLUDE(biicode/cmake/tools)
-    
+
     ACTIVATE_CPP11()
     ADD_BIICODE_TARGETS()
 ELSE()
@@ -9,9 +9,6 @@ ELSE()
     set(CURL_MIN_VERSION "7.28.0")
     # Setting up project
     project(CURLCPP)
-
-    set(CMAKE_CXX_FLAGS "-std=c++11 -fPIC")
-
 
     # Add MacPorts
     if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -23,7 +20,7 @@ ELSE()
 
     # Set up include pathes
     include_directories(${CURL_INCLUDE_DIRS}
-      ${CURLCPP_SOURCE_DIR}/include)
+      ${CURLCPP_SOURCE_DIR}/include/curlcpp)
 
     # Set up source directories
     add_subdirectory(src)
@@ -32,4 +29,8 @@ ELSE()
 
     configure_file(CMake/curlcppConfig.cmake.in
       ${CURLCPP_BINARY_DIR}/curlcppConfig.cmake @ONLY)
+
+    # Install the headers
+    install (DIRECTORY include/curlcpp DESTINATION include)
+
 ENDIF()
